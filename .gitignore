@@ -1,0 +1,9 @@
+# Visual Studio Code
+.vscode/
+
+# Environment Files
+.env
+.env.*
+
+# macOS
+.DS_Store
