@@ -7,7 +7,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o unifi-cloudflare-ddns-go main.go
+# Build the binary with CGO disabled to ensure it's statically linked
+RUN CGO_ENABLED=0 GOOS=linux go build -o unifi-cloudflare-ddns-go main.go
 
 FROM alpine:latest
 
@@ -15,4 +16,4 @@ WORKDIR /root/
 
 COPY --from=builder /app/unifi-cloudflare-ddns-go .
 
-ENTRYPOINT [ "./unifi-cloudflare-ddns-go" ]
+ENTRYPOINT [ "/root/unifi-cloudflare-ddns-go" ]
